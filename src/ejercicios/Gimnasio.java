@@ -1,4 +1,4 @@
-package ud2;
+package ejercicios;
 
 	import java.util.Scanner;
 	public class Gimnasio {

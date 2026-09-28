@@ -1,4 +1,4 @@
-package dami_Reto_13;
+package ejercicios;
 
 import java.util.Scanner;
 

@@ -2,7 +2,7 @@ package ejercicios;
 
 import java.util.Scanner;
 
-public class Enunciado1 {
+public class CalculadoraCO2 {
 
 	public static void main(String[] args) {
 
