@@ -10,7 +10,7 @@ public class CalculadoraCO2 {
 
 		int actividades, opcionesPlancha, numPersonas;
 		double cantidad;
-		double distanciaCoche, distanciaBus, distanciaBici, usoPlancha, usoOrdenador, usoMovil;
+		double distanciaCoche, distanciaBus, distanciaBici, usoPlancha, usoOrdenador, usoMovil, distanciaAvion, usoAire;
 		double totalPersona, totalGrupo = 0;
 
 		System.out.print("Bienvenido. ¿Cuantas personas se van a registrar? ");
@@ -28,7 +28,7 @@ public class CalculadoraCO2 {
 		for (int i = 0; i < numPersonas; i++) {
 
 			// LOS CONTADORES DE CADA PERSONA EMPIEZAN EN 0
-			distanciaCoche = distanciaBus = distanciaBici = usoPlancha = usoOrdenador = usoMovil = 0;
+			distanciaCoche = distanciaBus = distanciaBici = usoPlancha = usoOrdenador = usoMovil = distanciaAvion = usoAire = 0;
 			totalPersona = 0;
 			System.out.println("\nPersona numero " + (i + 1) + ":");
 
@@ -40,14 +40,16 @@ public class CalculadoraCO2 {
 				System.out.println("4- Uso de plancha (0,70 kg CO2 por hora).");
 				System.out.println("5- Uso del ordenador (0,08 kg CO2 por hora).");
 				System.out.println("6- Uso del móvil (0,02 kg CO2 por hora).");
-				System.out.println("7- Finalizar actividades del día.");
+				System.out.println("7- Viaje en avión (0,25 kg CO2 por km).");
+				System.out.println("8- Uso del aire acondicionado (1,35 kg CO2 por hora).");
+				System.out.println("9- Finalizar actividades del día.");
 
 				actividades = sc.nextInt();
 
 				// FILTRO PARA LOS NUMEROS QUE NO ESTEN EN EL RANGO DEL MENU
-				while (actividades > 7 || actividades <= 0) {
+				while (actividades > 9 || actividades <= 0) {
 					System.out.println("ERROR");
-					System.out.println("Introduzca lo que quiere hacer (1-7)");
+					System.out.println("Introduzca lo que quiere hacer (1-9)");
 					actividades = sc.nextInt();
 				}
 
@@ -157,10 +159,40 @@ public class CalculadoraCO2 {
 					totalPersona = totalPersona + 0.02 * cantidad;
 					break;
 
+				// APARTADO DEL USO DEL AVIÓN
+				case 7:
+					System.out.print("¿Cuantos km has viajado en avión? ");
+					cantidad = sc.nextDouble();
+
+					while (cantidad < 0) {
+						System.out.println("ERROR");
+						System.out.print("Introduzca el numero km en positivo. ");
+						cantidad = sc.nextDouble();
+					}
+
+					distanciaAvion = distanciaAvion + cantidad;
+					totalPersona = totalPersona + 0.25 * cantidad;
+					break;
+
+				// APARTADO DEL USO DEL AIRE ACONDICIONADO
+				case 8:
+					System.out.print("¿Cuantas horas has usado el aire acondicionado? ");
+					cantidad = sc.nextDouble();
+
+					while (cantidad < 0) {
+						System.out.println("ERROR");
+						System.out.print("Introduzca el numero de horas en positivo. ");
+						cantidad = sc.nextDouble();
+					}
+
+					usoAire = usoAire + cantidad;
+					totalPersona = totalPersona + 1.35 * cantidad;
+					break;
+
 				default:
 				}
 
-			} while (actividades != 7);
+			} while (actividades != 9);
 
 			// LISTA DE CONSUMO DE LA PERSONA POR TIPO DE EMISION
 			System.out.println("\nPersona " + (i + 1));
@@ -170,6 +202,8 @@ public class CalculadoraCO2 {
 			System.out.println("En total has consumido " + (0.70 * usoPlancha) + " kg de CO2 con la plancha");
 			System.out.println("En total has consumido " + (0.08 * usoOrdenador) + " kg de CO2 con el ordenador");
 			System.out.println("En total has consumido " + (0.02 * usoMovil) + " kg de CO2 con el móvil");
+			System.out.println("En total has consumido " + (0.25 * distanciaAvion) + " kg de CO2 del avión");
+			System.out.println("En total has consumido " + (1.35 * usoAire) + " kg de CO2 con el aire acondicionado");
 			System.out.println("Total de la persona " + (i + 1) + ": " + totalPersona + " kg");
 
 			// SUMA AL TOTAL DEL GRUPO
@@ -178,6 +212,8 @@ public class CalculadoraCO2 {
 
 		System.out.println("\nTotal de CO2 emitido por el grupo: " + totalGrupo + " kg.");
 		System.out.println("Hasta la próxima!");
+		
+		sc.close();
 	}
 
 }
