@@ -31,7 +31,7 @@ package ejercicios;
 					System.out.println("Introduzca cuantos minutos ha hecho ejercicio el dia "+(j+1));
 					minutosEjercicio=sc.nextInt();
 					while(minutosEjercicio<0||minutosEjercicio>480) {
-						System.out.println("Solo estamos abiertos 8 horas, no puedes estar mas de nuestro horario haciendo un ejercicio.");
+						System.out.println("Solo estamos abiertos 8 horas y no puedes introducir horas negativas, no puedes estar mas de nuestro horario haciendo un ejercicio. Introduzcalo de nuevo:");
 						minutosEjercicio=sc.nextInt();
 					}
 					totalMinutos+=minutosEjercicio;
